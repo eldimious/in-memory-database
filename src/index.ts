@@ -2,6 +2,14 @@ interface IDatabaseStructure {
   key?: string
 }
 
+function parseJson(key: string, value: string): any {
+  try {
+    return JSON.parse(value as string);
+  } catch (err) {
+    throw new SyntaxError(`Failed to parse value of ${key}, try passing a raw option to get the raw value`);
+  }
+}
+
 export class InMemoryDatabase {
   private cache: IDatabaseStructure;
 
@@ -20,11 +28,28 @@ export class InMemoryDatabase {
     if (!this.cache[index]) {
       return undefined;
     }
-    try {
-      return JSON.parse(this.cache[index] as string);
-    } catch (err) {
-      throw new SyntaxError(`Failed to parse value of ${key}, try passing a raw option to get the raw value`);
+    return parseJson(key, this.cache[index] as string);
+  }
+
+  mget(keys: [string]): any {
+    const state: { [key: string]: any } = {};
+    for (const key in keys) {
+      const index = key as keyof IDatabaseStructure;
+      if (!this.cache[index]) {
+        state[key] = undefined;
+      } else {
+        state[key] = parseJson(key, this.cache[index] as string);
+      }
     }
+    return state;
+  }
+
+  keys(): string[] {
+    return Object.keys(this.cache)
+  }
+
+  has(key: string): boolean {
+    return this.cache.hasOwnProperty(key)
   }
 
   delete(key: string): void {
@@ -32,7 +57,7 @@ export class InMemoryDatabase {
     delete this.cache[index];
   }
 
-  empty(key: string): void {
+  flush(key: string): void {
     this.cache = {};
   }
 }
