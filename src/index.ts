@@ -1,3 +1,7 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 interface IDatabaseStructure {
   key?: string
 }
@@ -14,7 +18,7 @@ export class InMemoryDatabase {
   private cache: IDatabaseStructure;
 
   constructor() {
-    this.cache = {} as IDatabaseStructure
+    this.cache = {} as IDatabaseStructure;
   }
 
   set(key: string, value: any): void {
@@ -31,9 +35,9 @@ export class InMemoryDatabase {
     return parseJson(key, this.cache[index] as string);
   }
 
-  mget(keys: [string]): any {
+  mget(keys: string[]): any {
     const state: { [key: string]: any } = {};
-    for (const key in keys) {
+    for (const key of keys) {
       const index = key as keyof IDatabaseStructure;
       if (!this.cache[index]) {
         state[key] = undefined;
@@ -44,18 +48,18 @@ export class InMemoryDatabase {
     return state;
   }
 
-  mset(keyValueSet: Map<string, any>): void {
-    for (const [key, value] of keyValueSet) {  
-      this.set(key, value);     
+  mset(keyValueMap: Map<string, any>): void {
+    for (const [key, value] of keyValueMap) {
+      this.set(key, value);
     }
   }
 
   keys(): string[] {
-    return Object.keys(this.cache)
+    return Object.keys(this.cache);
   }
 
   has(key: string): boolean {
-    return this.cache.hasOwnProperty(key)
+    return this.cache.hasOwnProperty(key);
   }
 
   delete(key: string): void {
@@ -63,7 +67,7 @@ export class InMemoryDatabase {
     delete this.cache[index];
   }
 
-  flush(key: string): void {
+  flush(): void {
     this.cache = {};
   }
 }
