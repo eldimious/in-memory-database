@@ -44,6 +44,12 @@ export class InMemoryDatabase {
     return state;
   }
 
+  mset(keyValueSet: Map<string, any>): void {
+    for (const [key, value] of keyValueSet) {  
+      this.set(key, value);     
+    }
+  }
+
   keys(): string[] {
     return Object.keys(this.cache)
   }
