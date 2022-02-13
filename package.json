@@ -1,16 +1,45 @@
 {
   "name": "in-memory-database",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A simple caching module that works a like memcached. All keys are stored in a single object.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "cache",
+    "caching",
+    "local",
+    "variable",
+    "multi",
+    "memory",
+    "internal",
+    "node",
+    "memcached",
+    "object"
+  ],
+  "tags": [
+    "cache",
+    "caching",
+    "local",
+    "variable",
+    "multi",
+    "memory",
+    "internal",
+    "node",
+    "memcached",
+    "object"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "prepublish": "tsc",
+    "dev": "npx ts-node index.ts",
+    "test": "ts-mocha tests/**/*.test.ts",
+    "lint": "eslint src/**/*.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eldimious/in-memory-database.git"
   },
-  "author": "",
+  "author": "Dimos Botsaris <botsaris.d@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/eldimious/in-memory-database/issues"
