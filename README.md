@@ -30,33 +30,79 @@ npm install --save in-memory-database
 const { InMemoryDatabase } = require('in-memory-database');
 
 const client = new InMemoryDatabase();
-
-/*
-  Set a key
-*/
 client.set('key', 'value');
-
-/*
-  Fetch a key
-*/
 client.get('key');
+```
 
-/*
-  Delete a key
-*/
+## Docs
+### `class InMemoryDatabase()`
+
+**Class Methods**
+
+These functions are specified in the in-memory-database.
+
+> `get(key: string): any`
+
+Gets a key'svalue.
+```ts
+client.get('key');
+```
+
+> `set(key: string, value: any): void`
+
+Sets a key to value.
+```ts
+client.set('key', 'value');
+```
+
+> `delete(key: string): void`
+
+Deletes a key.
+
+```ts
 client.delete('key');
+```
 
-/*
-  Set / Fetch multiple keys
-*/
+> `mget(keys: string[]): any`
+
+Lists all of the keys that defined in the array.
+
+```ts
+const values = client.mget(['key1', 'key2']);
+```
+
+> `mset(keyValueMap: Map<string, any>): void`
+
+Sets the multiple a keys/values.
+
+```ts
 const keyValueMap: Map<string, any> = new Map();
-client.set('key1', 'value1');
-client.set('key2', {'foo': 'bar', 'baz': 1});
-const values = client.mget([key1, key2]);
+keyValueMap.set('key1', 'value1');
+keyValueMap.set('key2', {'foo': 'bar', 'baz': 1});
+client.mset(keyValueMap);
+```
 
-/*
-  Flush database
-*/
+> `keys(): string[]`
+
+Get all database keys.
+
+```ts
+const keys = client.keys();
+```
+
+> `has(key: string): boolean`
+
+Defines if we have stored specific key in database.
+
+```ts
+const isAlreadyThere = client.has('key');
+```
+
+> `flush(): void`
+
+Flush database.
+
+```ts
 client.flush();
 ```
 
