@@ -49,7 +49,7 @@ client.delete('key');
 /*
   Set / Fetch multiple keys
 */
- const keyValueMap: Map<string, any> = new Map();
+const keyValueMap: Map<string, any> = new Map();
 client.set('key1', 'value1');
 client.set('key2', {'foo': 'bar', 'baz': 1});
 const values = client.mget([key1, key2]);
