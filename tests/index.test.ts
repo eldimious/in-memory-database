@@ -58,4 +58,17 @@ describe('test InMemoryDatabase module:', () => {
     expect(values[key2]).to.deep.equal(keyValue2);
     expect(values[key3]).to.be.equal(undefined);
   });
+
+  it('should flush values from memory', () => {
+    const key = 'foo';
+    const key1 = 'foo';
+    const key2 = 'test1';
+    const key3 = 'test3';
+    client.flush();
+    const values = client.mget([key, key1, key2, key3]);
+    expect(values[key]).to.be.equal(undefined);
+    expect(values[key1]).to.be.equal(undefined);
+    expect(values[key2]).to.deep.equal(undefined);
+    expect(values[key3]).to.be.equal(undefined);
+  });
 });
