@@ -48,7 +48,7 @@ describe('test InMemoryDatabase module:', () => {
   });
 
   it('should multi get keys / values from memory', () => {
-    const testKey = 'testkey'
+    const testKey = 'testkey';
     const values = client.mget([key1, key2, testKey]);
     expect(values[key1]).to.be.equal(keyValue1);
     expect(values[key2]).to.deep.equal(keyValue2);
@@ -62,6 +62,15 @@ describe('test InMemoryDatabase module:', () => {
   it('should has return all database keys', () => {
     const keys = [key, key1, key2, key3]
     expect(client.keys()).to.deep.equal(keys);
+  });
+
+  it('should multi delete from memory', () => {
+    const testKey = 'testkey';
+    client.mdelete([key1, testKey]);
+    const values = client.mget([key1, key2, testKey]);
+    expect(values[key1]).to.be.equal(undefined);
+    expect(values[key2]).to.deep.equal(keyValue2);
+    expect(values[testKey]).to.be.equal(undefined);
   });
 
   it('should flush values from memory', () => {

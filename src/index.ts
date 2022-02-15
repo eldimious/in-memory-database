@@ -67,6 +67,15 @@ export class InMemoryDatabase {
     delete this.cache[index];
   }
 
+  mdelete(keys: string[]): void {
+    for (const key of keys) {
+      const index = key as keyof IDatabaseStructure;
+      if (this.cache[index]) {
+        delete this.cache[index];
+      }
+    }
+  }
+
   flush(): void {
     this.cache = {};
   }
