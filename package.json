@@ -1,6 +1,6 @@
 {
   "name": "in-memory-database",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple caching module that works a like memcached. All keys are stored in a single object.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
